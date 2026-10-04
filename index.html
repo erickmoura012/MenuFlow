@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cardápio digital - faça seu pedido pelo WhatsApp">
+  <title>Cardápio | MenuFlow</title>
+
+  <link rel="icon" href="assets/img/icone.svg" type="image/svg+xml">
+
+  <!-- Fonte Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Ícones (Font Awesome) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/cardapio.css">
+</head>
+<body>
+
+  <!-- Cabeçalho -->
+  <header class="cabecalho">
+    <div class="container cabecalho-conteudo">
+      <a href="#" class="logo">
+        <span class="logo-icone"><i class="fa-solid fa-utensils"></i></span>
+        <span id="nomeCabecalho">Restaurante</span>
+      </a>
+
+      <button class="botao-carrinho" id="botaoAbrirCarrinho" aria-label="Abrir carrinho">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <span class="botao-carrinho-texto">Carrinho</span>
+        <span class="contador-carrinho" id="contadorCarrinho">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero / capa do restaurante -->
+  <section class="hero" id="hero">
+    <div class="container hero-conteudo">
+      <span class="hero-etiqueta"><i class="fa-solid fa-fire"></i> Peça online</span>
+      <h1 id="nomeRestaurante">Restaurante</h1>
+      <p id="sloganRestaurante"></p>
+
+      <ul class="hero-informacoes">
+        <li><i class="fa-regular fa-clock"></i> <span id="horarioRestaurante"></span></li>
+        <li><i class="fa-solid fa-motorcycle"></i> <span id="tempoEntrega"></span></li>
+        <li><i class="fa-solid fa-location-dot"></i> <span id="enderecoRestaurante"></span></li>
+      </ul>
+
+      <a href="#cardapio" class="botao botao-primario hero-botao">
+        Ver cardápio <i class="fa-solid fa-arrow-down"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Busca e categorias -->
+  <div class="barra-filtros">
+    <div class="container">
+      <div class="busca">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="search" id="campoBusca" placeholder="Buscar no cardápio..." autocomplete="off">
+      </div>
+
+      <nav class="lista-categorias" id="listaCategorias">
+        <!-- preenchido pelo JavaScript -->
+      </nav>
+    </div>
+  </div>
+
+  <!-- Produtos -->
+  <main class="container cardapio" id="cardapio">
+    <div id="listaProdutos">
+      <!-- preenchido pelo JavaScript -->
+    </div>
+
+    <div class="sem-resultados" id="semResultados">
+      <i class="fa-solid fa-bowl-food"></i>
+      <h3>Nenhum produto encontrado</h3>
+      <p>Tente buscar por outro nome ou escolher outra categoria.</p>
+    </div>
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="rodape">
+    <div class="container rodape-conteudo">
+      <div>
+        <strong id="nomeRodape">Restaurante</strong>
+        <p id="enderecoRodape"></p>
+      </div>
+      <div class="rodape-links">
+        <span>Cardápio digital feito com <strong>MenuFlow</strong></span>
+        <a href="admin.html"><i class="fa-solid fa-lock"></i> Área do restaurante</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Barra do carrinho no celular -->
+  <button class="barra-carrinho" id="barraCarrinho">
+    <span class="barra-carrinho-quantidade" id="barraQuantidade">0</span>
+    <span>Ver carrinho</span>
+    <strong id="barraTotal">R$ 0,00</strong>
+  </button>
+
+  <!-- Carrinho (menu lateral) -->
+  <div class="fundo-escuro" id="fundoCarrinho"></div>
+
+  <aside class="carrinho" id="carrinho">
+    <div class="carrinho-topo">
+      <h2><i class="fa-solid fa-bag-shopping"></i> Seu pedido</h2>
+      <button class="botao-icone" id="botaoFecharCarrinho" aria-label="Fechar carrinho">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="carrinho-itens" id="itensCarrinho">
+      <!-- preenchido pelo JavaScript -->
+    </div>
+
+    <div class="carrinho-rodape" id="rodapeCarrinho">
+      <div class="campo">
+        <label for="observacoes">Observações do pedido</label>
+        <textarea id="observacoes" rows="2" placeholder="Ex: sem cebola, ponto da carne, troco..."></textarea>
+      </div>
+
+      <div class="carrinho-total">
+        <span>Subtotal</span>
+        <strong id="subtotalCarrinho">R$ 0,00</strong>
+      </div>
+
+      <button class="botao botao-primario botao-grande" id="botaoFinalizar">
+        Finalizar pedido <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Modal para finalizar o pedido -->
+  <div class="modal" id="modalPedido">
+    <div class="modal-caixa">
+      <div class="modal-topo">
+        <h2>Finalizar pedido</h2>
+        <button class="botao-icone" data-fechar="modalPedido" aria-label="Fechar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="formPedido" novalidate>
+        <div class="modal-corpo">
+          <div class="campo">
+            <label for="nomeCliente">Seu nome *</label>
+            <input type="text" id="nomeCliente" placeholder="Como podemos te chamar?">
+          </div>
+
+          <div class="campo">
+            <label>Como quer receber? *</label>
+            <div class="opcoes">
+              <label class="opcao">
+                <input type="radio" name="tipoEntrega" value="entrega" checked>
+                <span><i class="fa-solid fa-motorcycle"></i> Entrega</span>
+              </label>
+              <label class="opcao">
+                <input type="radio" name="tipoEntrega" value="retirada">
+                <span><i class="fa-solid fa-store"></i> Retirar no local</span>
+              </label>
+            </div>
+          </div>
+
+          <div id="camposEndereco">
+            <div class="campo">
+              <label for="endereco">Rua e número *</label>
+              <input type="text" id="endereco" placeholder="Ex: Rua das Flores, 45">
+            </div>
+
+            <div class="linha-campos">
+              <div class="campo">
+                <label for="bairro">Bairro *</label>
+                <input type="text" id="bairro" placeholder="Seu bairro">
+              </div>
+              <div class="campo">
+                <label for="complemento">Complemento</label>
+                <input type="text" id="complemento" placeholder="Apto, bloco, referência">
+              </div>
+            </div>
+          </div>
+
+          <div class="campo">
+            <label for="pagamento">Forma de pagamento *</label>
+            <select id="pagamento">
+              <option value="">Selecione</option>
+              <option value="Pix">Pix</option>
+              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de débito">Cartão de débito</option>
+              <option value="Dinheiro">Dinheiro</option>
+            </select>
+          </div>
+
+          <div class="campo escondido" id="campoTroco">
+            <label for="troco">Troco para quanto?</label>
+            <input type="number" id="troco" min="0" step="0.01" placeholder="Deixe em branco se não precisar">
+          </div>
+
+          <div class="resumo-pedido">
+            <div><span>Subtotal</span><span id="resumoSubtotal">R$ 0,00</span></div>
+            <div id="linhaTaxa"><span>Taxa de entrega</span><span id="resumoTaxa">R$ 0,00</span></div>
+            <div class="resumo-total"><span>Total</span><strong id="resumoTotal">R$ 0,00</strong></div>
+          </div>
+        </div>
+
+        <div class="modal-rodape">
+          <button type="submit" class="botao botao-whatsapp botao-grande">
+            <i class="fa-brands fa-whatsapp"></i> Enviar pedido pelo WhatsApp
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Avisos rápidos -->
+  <div class="avisos" id="avisos"></div>
+
+  <!-- A ordem dos scripts importa: primeiro configurações e serviços, depois a página -->
+  <script src="js/config.js"></script>
+  <script src="js/dados-iniciais.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/servicos/banco-local.js"></script>
+  <script src="js/servicos/restaurante-servico.js"></script>
+  <script src="js/servicos/categorias-servico.js"></script>
+  <script src="js/servicos/produtos-servico.js"></script>
+  <script src="js/carrinho.js"></script>
+  <script src="js/whatsapp.js"></script>
+  <script src="js/cardapio.js"></script>
+</body>
+</html>
