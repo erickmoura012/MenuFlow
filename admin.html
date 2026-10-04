@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel do Restaurante | MenuFlow</title>
+
+  <link rel="icon" href="assets/img/icone.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <div class="painel">
+
+    <!-- Menu lateral -->
+    <aside class="menu-lateral" id="menuLateral">
+      <div class="menu-logo">
+        <img src="assets/img/icone.svg" alt="MenuFlow">
+        <div>
+          <strong>MenuFlow</strong>
+          <span>Painel do restaurante</span>
+        </div>
+      </div>
+
+      <nav class="menu-links">
+        <button class="menu-link ativo" data-secao="dashboard">
+          <i class="fa-solid fa-chart-pie"></i> Dashboard
+        </button>
+        <button class="menu-link" data-secao="produtos">
+          <i class="fa-solid fa-burger"></i> Produtos
+        </button>
+        <button class="menu-link" data-secao="categorias">
+          <i class="fa-solid fa-tags"></i> Categorias
+        </button>
+        <button class="menu-link" data-secao="configuracoes">
+          <i class="fa-solid fa-gear"></i> Configurações
+        </button>
+      </nav>
+
+      <a href="index.html" target="_blank" class="menu-ver-cardapio">
+        <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver cardápio
+      </a>
+    </aside>
+
+    <div class="fundo-menu" id="fundoMenu"></div>
+
+    <!-- Conteúdo -->
+    <div class="conteudo">
+      <header class="topo">
+        <button class="botao-icone botao-menu" id="botaoMenu" aria-label="Abrir menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div>
+          <h1 id="tituloSecao">Dashboard</h1>
+          <p id="nomeRestauranteTopo"></p>
+        </div>
+        <a href="index.html" target="_blank" class="botao botao-secundario topo-botao">
+          <i class="fa-solid fa-eye"></i> <span>Ver cardápio</span>
+        </a>
+      </header>
+
+      <main class="area-conteudo">
+
+        <!-- DASHBOARD -->
+        <section class="secao ativa" id="secao-dashboard">
+          <div class="cards-resumo">
+            <div class="card-resumo">
+              <div class="card-resumo-icone laranja"><i class="fa-solid fa-burger"></i></div>
+              <div>
+                <span>Total de produtos</span>
+                <strong id="totalProdutos">0</strong>
+              </div>
+            </div>
+            <div class="card-resumo">
+              <div class="card-resumo-icone azul"><i class="fa-solid fa-tags"></i></div>
+              <div>
+                <span>Categorias</span>
+                <strong id="totalCategorias">0</strong>
+              </div>
+            </div>
+            <div class="card-resumo">
+              <div class="card-resumo-icone verde"><i class="fa-solid fa-circle-check"></i></div>
+              <div>
+                <span>Disponíveis</span>
+                <strong id="totalDisponiveis">0</strong>
+              </div>
+            </div>
+            <div class="card-resumo">
+              <div class="card-resumo-icone vermelho"><i class="fa-solid fa-circle-xmark"></i></div>
+              <div>
+                <span>Indisponíveis</span>
+                <strong id="totalIndisponiveis">0</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="paineis">
+            <div class="caixa">
+              <div class="caixa-topo">
+                <h2>Produtos por categoria</h2>
+              </div>
+              <div id="graficoCategorias" class="grafico-categorias">
+                <!-- preenchido pelo JavaScript -->
+              </div>
+            </div>
+
+            <div class="caixa">
+              <div class="caixa-topo">
+                <h2>Produtos indisponíveis</h2>
+              </div>
+              <div id="listaIndisponiveis">
+                <!-- preenchido pelo JavaScript -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PRODUTOS -->
+        <section class="secao" id="secao-produtos">
+          <div class="caixa">
+            <div class="barra-ferramentas">
+              <div class="busca-admin">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="search" id="buscaProdutos" placeholder="Buscar produto...">
+              </div>
+              <select id="filtroCategoria" class="select-filtro">
+                <option value="0">Todas as categorias</option>
+              </select>
+              <button class="botao botao-primario" id="botaoNovoProduto">
+                <i class="fa-solid fa-plus"></i> Novo produto
+              </button>
+            </div>
+
+            <table class="tabela">
+              <thead>
+                <tr>
+                  <th>Produto</th>
+                  <th>Categoria</th>
+                  <th>Preço</th>
+                  <th>Disponível</th>
+                  <th class="coluna-acoes">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="corpoTabelaProdutos">
+                <!-- preenchido pelo JavaScript -->
+              </tbody>
+            </table>
+
+            <div class="lista-vazia escondido" id="produtosVazio">
+              <i class="fa-solid fa-box-open"></i>
+              <p>Nenhum produto encontrado.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- CATEGORIAS -->
+        <section class="secao" id="secao-categorias">
+          <div class="caixa">
+            <form class="form-categoria" id="formCategoria">
+              <div class="campo">
+                <label for="nomeCategoria">Nova categoria</label>
+                <input type="text" id="nomeCategoria" placeholder="Ex: Lanches, Massas, Combos..." maxlength="40">
+              </div>
+              <button type="submit" class="botao botao-primario">
+                <i class="fa-solid fa-plus"></i> Criar categoria
+              </button>
+            </form>
+          </div>
+
+          <div class="caixa">
+            <div class="caixa-topo">
+              <h2>Categorias cadastradas</h2>
+            </div>
+            <ul class="lista-categorias-admin" id="listaCategoriasAdmin">
+              <!-- preenchido pelo JavaScript -->
+            </ul>
+          </div>
+        </section>
+
+        <!-- CONFIGURAÇÕES -->
+        <section class="secao" id="secao-configuracoes">
+          <div class="caixa">
+            <div class="caixa-topo">
+              <h2>Dados do restaurante</h2>
+            </div>
+
+            <form id="formRestaurante">
+              <div class="linha-campos">
+                <div class="campo">
+                  <label for="configNome">Nome do restaurante *</label>
+                  <input type="text" id="configNome" required>
+                </div>
+                <div class="campo">
+                  <label for="configWhatsapp">WhatsApp para receber pedidos *</label>
+                  <input type="tel" id="configWhatsapp" placeholder="5511999999999" required>
+                  <small>Só números, com código do país (55) e DDD.</small>
+                </div>
+              </div>
+
+              <div class="campo">
+                <label for="configSlogan">Frase de apresentação</label>
+                <input type="text" id="configSlogan" maxlength="100">
+              </div>
+
+              <div class="linha-campos">
+                <div class="campo">
+                  <label for="configEndereco">Endereço</label>
+                  <input type="text" id="configEndereco">
+                </div>
+                <div class="campo">
+                  <label for="configHorario">Horário de funcionamento</label>
+                  <input type="text" id="configHorario" placeholder="Ex: Seg a Sex, das 18h às 23h">
+                </div>
+              </div>
+
+              <div class="linha-campos">
+                <div class="campo">
+                  <label for="configTempo">Tempo de entrega</label>
+                  <input type="text" id="configTempo" placeholder="Ex: 40 a 60 min">
+                </div>
+                <div class="campo">
+                  <label for="configTaxa">Taxa de entrega (R$)</label>
+                  <input type="number" id="configTaxa" min="0" step="0.01">
+                  <small>Coloque 0 para entrega grátis.</small>
+                </div>
+              </div>
+
+              <div class="campo">
+                <label for="configCapa">Imagem de capa (link)</label>
+                <input type="text" id="configCapa" placeholder="assets/img/capa.jpg">
+              </div>
+
+              <button type="submit" class="botao botao-primario">
+                <i class="fa-solid fa-floppy-disk"></i> Salvar alterações
+              </button>
+            </form>
+          </div>
+
+          <div class="caixa caixa-perigo">
+            <div>
+              <h2>Restaurar dados de exemplo</h2>
+              <p>Apaga todos os produtos, categorias e configurações e volta para o cardápio de exemplo.</p>
+            </div>
+            <button class="botao botao-perigo" id="botaoRestaurar">
+              <i class="fa-solid fa-rotate-left"></i> Restaurar
+            </button>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal de produto (serve para adicionar e para editar) -->
+  <div class="modal" id="modalProduto">
+    <div class="modal-caixa">
+      <div class="modal-topo">
+        <h2 id="tituloModalProduto">Novo produto</h2>
+        <button class="botao-icone" data-fechar="modalProduto" aria-label="Fechar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="formProduto" novalidate>
+        <div class="modal-corpo">
+          <div class="campo">
+            <label for="produtoNome">Nome *</label>
+            <input type="text" id="produtoNome" maxlength="60" placeholder="Ex: X-Salada">
+          </div>
+
+          <div class="campo">
+            <label for="produtoDescricao">Descrição</label>
+            <textarea id="produtoDescricao" rows="3" maxlength="200" placeholder="Ingredientes, tamanho, quantas pessoas serve..."></textarea>
+          </div>
+
+          <div class="linha-campos">
+            <div class="campo">
+              <label for="produtoPreco">Preço (R$) *</label>
+              <input type="number" id="produtoPreco" min="0" step="0.01" placeholder="0,00">
+            </div>
+            <div class="campo">
+              <label for="produtoCategoria">Categoria *</label>
+              <select id="produtoCategoria"></select>
+            </div>
+          </div>
+
+          <div class="campo">
+            <label for="produtoImagem">Foto do produto</label>
+            <div class="campo-imagem">
+              <img id="previaImagem" src="assets/img/sem-foto.svg" alt="Prévia da foto">
+              <div>
+                <input type="text" id="produtoImagem" placeholder="Cole o link da imagem">
+                <label class="botao botao-secundario botao-arquivo">
+                  <i class="fa-solid fa-upload"></i> Escolher do computador
+                  <input type="file" id="produtoArquivo" accept="image/*">
+                </label>
+                <small>Imagens do computador precisam ter no máximo 500KB.</small>
+              </div>
+            </div>
+          </div>
+
+          <label class="linha-interruptor">
+            <span class="interruptor">
+              <input type="checkbox" id="produtoDisponivel" checked>
+              <span class="interruptor-bolinha"></span>
+            </span>
+            Produto disponível para venda
+          </label>
+        </div>
+
+        <div class="modal-rodape">
+          <button type="button" class="botao botao-secundario" data-fechar="modalProduto">Cancelar</button>
+          <button type="submit" class="botao botao-primario">
+            <i class="fa-solid fa-check"></i> Salvar produto
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="avisos" id="avisos"></div>
+
+  <script src="js/config.js"></script>
+  <script src="js/dados-iniciais.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/servicos/banco-local.js"></script>
+  <script src="js/servicos/restaurante-servico.js"></script>
+  <script src="js/servicos/categorias-servico.js"></script>
+  <script src="js/servicos/produtos-servico.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
