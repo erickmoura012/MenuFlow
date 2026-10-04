@@ -1,0 +1,380 @@
+/* Estilos usados nas duas páginas (cardápio e admin) */
+
+:root {
+  --cor-primaria: #e85d04;
+  --cor-primaria-escura: #c44d00;
+  --cor-primaria-clara: #fff1e6;
+
+  --cor-texto: #1f2937;
+  --cor-texto-claro: #6b7280;
+  --cor-fundo: #f6f6f7;
+  --cor-branco: #ffffff;
+  --cor-borda: #e5e7eb;
+  --cor-escura: #111827;
+
+  --cor-sucesso: #16a34a;
+  --cor-sucesso-clara: #dcfce7;
+  --cor-perigo: #dc2626;
+  --cor-perigo-clara: #fee2e2;
+  --cor-whatsapp: #25d366;
+
+  --raio: 12px;
+  --sombra: 0 1px 3px rgba(17, 24, 39, 0.06), 0 1px 2px rgba(17, 24, 39, 0.04);
+  --sombra-grande: 0 12px 32px rgba(17, 24, 39, 0.12);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', Arial, sans-serif;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+body.sem-rolagem {
+  overflow: hidden;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--cor-texto);
+}
+
+ul {
+  list-style: none;
+}
+
+.container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.escondido {
+  display: none !important;
+}
+
+/* ---------- Botões ---------- */
+
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+  white-space: nowrap;
+}
+
+.botao:active {
+  transform: scale(0.98);
+}
+
+.botao-primario {
+  background-color: var(--cor-primaria);
+  color: var(--cor-branco);
+}
+
+.botao-primario:hover {
+  background-color: var(--cor-primaria-escura);
+}
+
+.botao-secundario {
+  background-color: var(--cor-branco);
+  color: var(--cor-texto);
+  border: 1px solid var(--cor-borda);
+}
+
+.botao-secundario:hover {
+  background-color: #f9fafb;
+}
+
+.botao-perigo {
+  background-color: var(--cor-perigo-clara);
+  color: var(--cor-perigo);
+}
+
+.botao-perigo:hover {
+  background-color: #fecaca;
+}
+
+.botao-whatsapp {
+  background-color: var(--cor-whatsapp);
+  color: var(--cor-branco);
+}
+
+.botao-whatsapp:hover {
+  background-color: #1ebe5b;
+}
+
+.botao-grande {
+  width: 100%;
+  padding: 14px 18px;
+  font-size: 1rem;
+}
+
+.botao-icone {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cor-texto-claro);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.botao-icone:hover {
+  background-color: #f3f4f6;
+  color: var(--cor-texto);
+}
+
+/* ---------- Formulários ---------- */
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.campo label {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 10px;
+  background-color: var(--cor-branco);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.campo textarea {
+  resize: vertical;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  border-color: var(--cor-primaria);
+  box-shadow: 0 0 0 3px rgba(232, 93, 4, 0.15);
+}
+
+.campo small {
+  font-size: 0.8rem;
+  color: var(--cor-texto-claro);
+}
+
+.linha-campos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* Opções em formato de botão (entrega / retirada) */
+.opcoes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.opcao input {
+  display: none;
+}
+
+.opcao span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.opcao input:checked + span {
+  border-color: var(--cor-primaria);
+  background-color: var(--cor-primaria-clara);
+  color: var(--cor-primaria-escura);
+}
+
+/* ---------- Modal ---------- */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background-color: rgba(17, 24, 39, 0.55);
+}
+
+.modal.aberto {
+  display: flex;
+}
+
+.modal-caixa {
+  width: 100%;
+  max-width: 540px;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  background-color: var(--cor-branco);
+  border-radius: 16px;
+  box-shadow: var(--sombra-grande);
+  animation: aparecerModal 0.25s ease;
+}
+
+.modal-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.modal-topo h2 {
+  font-size: 1.15rem;
+}
+
+.modal-corpo {
+  padding: 20px;
+}
+
+.modal-rodape {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px 20px;
+  border-top: 1px solid var(--cor-borda);
+}
+
+@keyframes aparecerModal {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Avisos rápidos ---------- */
+
+/* Ficam no topo e no meio da tela para não tampar o carrinho */
+.avisos {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.aviso {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 340px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  background-color: var(--cor-escura);
+  color: var(--cor-branco);
+  font-size: 0.9rem;
+  box-shadow: var(--sombra-grande);
+  animation: entrarAviso 0.3s ease;
+}
+
+.aviso-sucesso i {
+  color: #4ade80;
+}
+
+.aviso-erro i {
+  color: #f87171;
+}
+
+.aviso.saindo {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: 0.3s;
+}
+
+@keyframes entrarAviso {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .linha-campos {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .avisos {
+    top: 12px;
+    width: calc(100% - 32px);
+  }
+
+  .aviso {
+    max-width: 100%;
+    width: 100%;
+  }
+}
