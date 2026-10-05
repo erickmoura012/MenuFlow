@@ -161,7 +161,7 @@ const produtosIniciais = [
     nome: 'Suco Natural',
     descricao: 'Copo de 500ml. Sabores: laranja, limão, maracujá ou abacaxi com hortelã.',
     preco: 9.9,
-    imagem: '',
+    imagem: 'assets/img/produtos/suco-natural.jpg',
     categoriaId: 4,
     disponivel: true
   },
